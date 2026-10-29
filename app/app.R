@@ -21,6 +21,7 @@ MAX_REPS <- 2000
 pct <- function(p, digits = 1) sprintf(paste0("%.", digits, "f%%"), 100 * p)
 
 ui <- page_sidebar(
+  fillable = FALSE,
   title = "Delayed-effect OS trial: design calculator",
   theme = bs_theme(version = 5, primary = "#2a78d6"),
   sidebar = sidebar(
@@ -60,7 +61,7 @@ ui <- page_sidebar(
   ),
   card(
     card_header("Assumed survival curves"),
-    plotOutput("surv_plot", height = "280px")
+    plotOutput("surv_plot", height = "340px")
   ),
   card(
     card_header("Methods"),
