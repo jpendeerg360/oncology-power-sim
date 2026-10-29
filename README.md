@@ -7,6 +7,7 @@ which design should be recommended compared with the standard log-rank test.
 
 - **Full report:** [`report/report.md`](report/report.md)
 - **Pre-specified design:** [`docs/design_spec.md`](docs/design_spec.md), written and approved before any scenario was run
+- **Design calculator (exploratory):** [live app](https://john-pendergrass-oncology-design-calculator.share.connect.posit.cloud/) for checking single designs beyond the pre-specified grid
 
 ---
 
@@ -126,7 +127,7 @@ already saved in `results/reps/`; delete that folder to rerun the simulation fro
 
 ## Design calculator (exploratory)
 
-`app/` is a Shiny app for checking a single design beyond the pre-specified grid. You set N,
+[`app/`](https://john-pendergrass-oncology-design-calculator.share.connect.posit.cloud/) is a Shiny app for checking a single design beyond the pre-specified grid. You set N,
 enrollment rate, dropout, HR, delay, target deaths and the calendar cap. It reports simulated
 log-rank and FH(0,1) power with Monte Carlo SEs, expected analysis time and the share of analyses
 triggered by the cap, next to analytic approximations from `gsDesign2` (average-HR log-rank,
@@ -137,9 +138,12 @@ the grid and decision rule in `docs/design_spec.md`. The app calls the same test
 (`simulate_trial`, `cut_data`, `analyze_trial`, `run_scenario`) through `R/design_tool.R`, and
 `tests/testthat/test-design-tool.R` checks that it reproduces the base-case grid scenario exactly.
 
+The live app runs on Posit Connect Cloud, published from `app/app.R` in this repository: https://john-pendergrass-oncology-design-calculator.share.connect.posit.cloud/
+
+To run it locally from the project root:
+
 ```sh
-Rscript -e 'shiny::runApp("app")'   # run locally from the project root
-Rscript app/deploy.R                # deploy to shinyapps.io (after rsconnect::setAccountInfo)
+Rscript -e 'shiny::runApp("app")'
 ```
 
 ## Repository layout
@@ -152,5 +156,5 @@ Rscript app/deploy.R                # deploy to shinyapps.io (after rsconnect::s
 | `results/` | Control model, planning calculations, pilot results, per-scenario replicates (`reps/`), scenario summary, recommendation, run log |
 | `figures/` | `01_*` exploration figures; `fig1`–`fig6` report figures |
 | `report/` | `report.Rmd` and the rendered `report.md` |
-| `app/` | Exploratory design calculator (Shiny) and its deploy script |
+| `app/` | Exploratory design calculator (Shiny app) |
 | `tests/testthat/` | Tests for the simulator, data cut, test statistics (against `survdiff`, `nphRCT`, `simtrial`), pilot operating characteristics and the design calculator |

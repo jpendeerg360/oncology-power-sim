@@ -1,5 +1,5 @@
 # Exploratory design calculator: simulated and analytic power for one user-chosen design.
-# Run locally from the project root with shiny::runApp("app"). Deploy with app/deploy.R.
+# Run locally from the project root with shiny::runApp("app"). Published on Posit Connect Cloud from GitHub.
 #
 # All simulation and analysis code comes from the project's R/ directory (tested in
 # tests/testthat/), so the app adds only the interface.
