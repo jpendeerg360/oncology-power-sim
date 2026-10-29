@@ -1,21 +1,35 @@
 # Power of a time-to-event oncology trial under enrollment, dropout and delayed effects
 
 **Question:** How do enrollment rate, dropout and a delayed treatment effect change the power of a
-two-arm time-to-event oncology trial? Does an analysis suited to delayed effects
-(Fleming–Harrington FH(0,1)) change which design to recommend?
+two-arm, event-driven overall-survival trial? Does an analysis suited to delayed effects
+(Fleming–Harrington FH(0,1)) change which design to recommend, compared with log-rank?
+
+- Report: [`report/report.md`](report/report.md) (source `report/report.Rmd`)
+- Pre-specified design: [`docs/design_spec.md`](docs/design_spec.md)
 
 ## How to run
 ```
 Rscript -e 'renv::restore()'
 Rscript run_all.R
 ```
+`run_all.R` runs scripts `01`–`05` in order and then the `testthat` suite.
 
-## Status
-- [x] Stage 1: explore `survival::colon`, calibrate the control-arm model (`scripts/01_explore.R`)
-- [x] Stage 2: design spec (`docs/design_spec.md`), approved; planning calcs in `scripts/02_design_calcs.R`
-- [x] Stage 3: simulator (`R/`), tests (`tests/testthat/`), pilot (`scripts/03_pilot.R`)
-- [ ] Stage 4: full simulation
-- [ ] Stage 5: report
+Expected runtime is about 3.5 minutes on a 14-core Mac (12 workers). The 768,000-trial simulation
+takes about 3 minutes of that. Stage 4 skips scenarios whose file already exists in `results/reps/`;
+delete that folder to rerun from scratch. A clean rerun reproduces `results/scenario_summary.csv`
+exactly.
 
-Run the tests with `Rscript -e 'testthat::test_dir("tests/testthat")'`.
-Expected runtime: full grid ~3 minutes on 12 workers (projection in `results/runtime_projection.rds`).
+No Quarto or pandoc is needed. The report is knitted to Markdown with `knitr::knit()`.
+
+## Layout
+```
+R/                  functions: control model, simulate_trial, cut_data, analyze_trial,
+                    run_scenario, summarise, recommend, design calcs, plot theme
+scripts/            01_explore, 02_design_calcs, 03_pilot, 04_run_scenarios, 05_report
+docs/design_spec.md pre-specified design (approved before the main run)
+results/            control model, planning calcs, pilot, per-replicate results (reps/),
+                    scenario summary, recommendation, run log with seeds and sessionInfo
+figures/            01_* exploration figures; fig1-fig6 report figures
+report/             report.Rmd -> report.md
+tests/testthat/     simulator, data cut, test statistics (vs survdiff/nphRCT/simtrial), pilot OCs
+```
