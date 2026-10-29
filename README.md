@@ -12,7 +12,7 @@ Rscript run_all.R
 
 ## Status
 - [x] Stage 1: explore `survival::colon`, calibrate the control-arm model (`scripts/01_explore.R`)
-- [x] Stage 2: design spec (`docs/design_spec.md`), DRAFT awaiting approval; planning calcs in `scripts/02_design_calcs.R`
+- [x] Stage 2: design spec (`docs/design_spec.md`), approved; planning calcs in `scripts/02_design_calcs.R`
 - [ ] Stage 3: simulator and validation
 - [ ] Stage 4: full simulation
 - [ ] Stage 5: report

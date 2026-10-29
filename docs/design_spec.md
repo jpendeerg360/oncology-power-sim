@@ -1,6 +1,6 @@
 # Design specification: simulation study of power under enrollment, dropout and delayed effects
 
-**Status:** DRAFT for review (Checkpoint 2). No scenario has been run.
+**Status:** APPROVED at Checkpoint 2 (2026-10-29). The approval changed the base case to the 12-month delay (pattern d).
 **Planning inputs:** `results/control_model.rds`, `results/stage1_summary.rds` (from `scripts/01_explore.R`)
 and `results/design_calcs.rds` (from `scripts/02_design_calcs.R`). Every number below that comes from
 data or planning calculations can be regenerated from those files.
@@ -86,8 +86,9 @@ the adjuvant setting, and the report will discuss it.
   min(T_i, L_i, t* − e_i), and the status is 1 if T_i ≤ min(L_i, t* − e_i). When the trigger is
   `events`, exactly D deaths are analyzed (event times are continuous, so there are no ties).
 
-Planning calculation (analytic expected deaths, not simulation), for the base-case neighborhood
-(6-month delay, 5%/yr dropout):
+Planning calculation (analytic expected deaths, not simulation), for 5%/yr dropout with a 6-month
+delay. The 12-month-delay figures are within about 3 months of these; see `results/design_calcs.rds`.
+
 
 | N | Accrual, 30/mo (months) | Expected time to D, 30/mo | Expected time to D, 15/mo |
 |---|---|---|---|
@@ -182,7 +183,10 @@ A **design** is a pair (N, method). D = 306 and C = 84 months are fixed.
    - *Known property:* even if the true type I error were exactly 0.025, each scenario has about a 2.3%
      chance of exceeding the threshold. So there's about a 13% chance that a valid design is excluded
      by chance. If this happens, it will be reported, but the rule stands.
-2. **Base case:** pattern (c) 6-month delay, **30 patients/month**, 5%/yr dropout.
+2. **Base case:** pattern (d) **12-month delay**, **30 patients/month**, 5%/yr dropout.
+   - *Why the 12-month delay:* the control hazard in months 0–6 is low (0.032/yr), so a 6-month delay
+     hides very few deaths and differs little from PH. The 12-month delay is the scenario where design
+     and method choices can actually differ.
    - *Why 30 rather than 15/month:* at 15/month, the expected time to D is at least about 79 months for
      every N (Section 3). No design could meet the duration limit below, so the event-driven design
      would really be a calendar-time design. The 15/month level stays in the grid as a sensitivity
@@ -203,7 +207,7 @@ A **design** is a pair (N, method). D = 306 and C = 84 months are fixed.
 Starting from the base case, change one factor at a time:
 - enrollment 15/month
 - dropout 0% or 15%/yr
-- pattern (b) PH or (d) 12-month delay
+- pattern (b) PH or (c) 6-month delay
 
 The recommended design is **sensitive** to a factor level if any of these hold at that level:
 - (i) its power falls below 0.80
@@ -235,5 +239,5 @@ scope. The report mentions them only as extensions.
 - **Report format:** at the user's instruction, the report won't use Quarto. Pandoc also isn't
   installed, so the report will be `report/report.Rmd` knitted to `report/report.md` with
   `knitr::knit()`.
-- **N grid** extended to 400–1200 (Section 4), with reasons given. **The base-case enrollment** is
-  30/month rather than the suggested 15/month (Section 8).
+- **N grid** extended to 400–1200 (Section 4), with reasons given. **The base case** is the
+  12-month delay at 30/month rather than the suggested 6-month delay at 15/month (Section 8).
