@@ -1,0 +1,9 @@
+.Rproj.user/
+.Rhistory
+.RData
+renv/library/
+renv/staging/
+renv/local/
+report/*_files/
+report/*.html
+.DS_Store
