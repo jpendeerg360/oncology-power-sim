@@ -13,8 +13,9 @@ Rscript run_all.R
 ## Status
 - [x] Stage 1: explore `survival::colon`, calibrate the control-arm model (`scripts/01_explore.R`)
 - [x] Stage 2: design spec (`docs/design_spec.md`), approved; planning calcs in `scripts/02_design_calcs.R`
-- [ ] Stage 3: simulator and validation
+- [x] Stage 3: simulator (`R/`), tests (`tests/testthat/`), pilot (`scripts/03_pilot.R`)
 - [ ] Stage 4: full simulation
 - [ ] Stage 5: report
 
-Expected runtime: TBD after Stage 3.
+Run the tests with `Rscript -e 'testthat::test_dir("tests/testthat")'`.
+Expected runtime: full grid ~3 minutes on 12 workers (projection in `results/runtime_projection.rds`).

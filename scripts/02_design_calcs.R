@@ -1,7 +1,7 @@
 # Stage 2: analytic planning calculations that justify the scenario grid in docs/design_spec.md.
 # Output: results/design_calcs.rds
 
-source("R/design_calc.R")
+for (f in list.files("R", pattern = "[.]R$", full.names = TRUE)) source(f)
 cm <- readRDS("results/control_model.rds")
 stage1 <- readRDS("results/stage1_summary.rds")
 

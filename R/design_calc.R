@@ -11,9 +11,6 @@ schoenfeld_power <- function(hr, events, alpha_one_sided = 0.025) {
   pnorm(sqrt(events / 4) * abs(log(hr)) - qnorm(1 - alpha_one_sided))
 }
 
-# Annual dropout proportion -> monthly exponential rate.
-dropout_rate <- function(annual_prop) -log(1 - annual_prop) / 12
-
 # Probability that a patient followed for `u` months dies before dropping out,
 # with control PWE hazard multiplied by `hr` after `delay` months.
 death_prob <- function(u, cuts, rate, hr = 1, delay = 0, drop = 0, step = 0.25) {
